@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "981920238568",
+    "firebase_url": "https://yurumesayar.firebaseio.com",
+    "project_id": "yurumesayar",
+    "storage_bucket": "yurumesayar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981920238568:android:54b167c31792d77a38325d",
+        "android_client_info": {
+          "package_name": "com.example.yurumesayar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981920238568-6uhafrh9isqkujedfmg7fjsahdu1el8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.yurumesayar",
+            "certificate_hash": "05eaa4158ecd015c30b0cdae1df6301da6fd478a"
+          }
+        },
+        {
+          "client_id": "981920238568-so705oddg4rboncirvjfmv3t9if870tt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXGH-_lz_umKalIO23mAefOQsd-yNzgo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981920238568-so705oddg4rboncirvjfmv3t9if870tt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

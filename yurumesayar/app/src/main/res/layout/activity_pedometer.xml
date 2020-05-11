@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_backroundcolor">
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+
+        android:gravity="center"
+        android:text="Su Hatırlatıcısı"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/b"
+        android:layout_toLeftOf="@+id/simpleSwitch"
+        android:drawableRight="@drawable/suicon"
+        android:layout_marginTop="5dp"
+        />
+
+    <Switch
+        android:id="@+id/simpleSwitch"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="141dp" />
+    <TextView
+        android:layout_marginTop="@dimen/_20sdp"
+        android:id="@+id/tv_steps"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:gravity="center"
+        android:layout_below="@+id/simpleSwitch"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/aa"
+        android:textSize="@dimen/_30sdp"
+        />
+
+
+    <TextView
+        android:id="@+id/kalori"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_below="@+id/tv_steps"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_15sdp"
+
+        android:gravity="center" />
+
+
+    <TextView
+        android:id="@+id/kaloriresim"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_below="@+id/tv_steps"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/ates"
+        android:gravity="center"
+
+        android:layout_toLeftOf="@+id/kalori"
+        android:visibility="invisible"
+        />
+
+
+
+    <Button
+        android:layout_marginTop="@dimen/_15sdp"
+        android:id="@+id/btn_start"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kalori"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+        android:enabled="true"
+        android:text="Adım saymaya başla"
+        android:textColor="#616161"
+        android:textSize="16dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_start"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+        android:enabled="true"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:text="Adım saymayı durdur"
+        android:textColor="#616161"
+        android:textSize="16dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+
+
+        />
+
+    <Button
+        android:id="@+id/toplamadımsayısı"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_stop"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+
+        android:drawableLeft="@drawable/statistic"
+        android:enabled="true"
+        android:text="Toplam Adım sayısı"
+        android:textColor="#616161"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/endeks"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toplamadımsayısı"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/statistic"
+        android:enabled="true"
+        android:text="Vücut Kitle endeksi"
+        android:gravity="center"
+        android:textColor="#616161"
+        android:textSize="16dp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        />
+
+    <Button
+        android:id="@+id/oturum"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_steps"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_toRightOf="@+id/tv_steps"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+
+        android:drawableLeft="@drawable/ldpi"
+        android:enabled="true"
+        android:text="ÇIKIŞ"
+        android:textColor="#616161"
+        android:textSize="16dp" />
+
+
+</RelativeLayout>

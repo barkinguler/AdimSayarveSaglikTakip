@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_backroundcolor">
+
+
+    <TextView
+        android:id="@+id/toplam"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/adm"
+        android:textSize="@dimen/_15sdp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/toplamkalori"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:drawableLeft="@drawable/atess"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/maxadim"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:drawableLeft="@drawable/adm"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/maxkalori"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:drawableLeft="@drawable/atess"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/ort"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:drawableLeft="@drawable/adm"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/ortkalori"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_15sdp"
+        android:drawableLeft="@drawable/atess"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/gec"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ortkalori"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/statistic"
+        android:enabled="true"
+
+        android:gravity="center"
+        android:text="ADIM DETAY"
+        android:textColor="#616161"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/detay"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/statistic"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="ADIM GRAFİK"
+        android:textColor="#616161"
+        android:textSize="16dp"
+        android:layout_marginTop="15dp"/>
+
+
+</LinearLayout>
