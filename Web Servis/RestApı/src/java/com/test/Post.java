@@ -7,6 +7,7 @@ package com.test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,63 +29,51 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author brkn_
  */
 @Path("testPost")
 @XmlRootElement
 public class Post {
-    
 
-   @XmlElement public String KULLANICI;
-   @XmlElement public String SIFRE;
-    //String KULLANICI;
-   // String SIFRE;
 
-@POST @Consumes("application/json")
-@Produces(MediaType.APPLICATION_JSON)
-@Path("/create")
-public ArrayList<testModel> create(Post input) {
-    
-    
-    
-    
-    
-    
-    
-    
-     
-     
-     Connection con1=null;
-        
+    @XmlElement
+    public String KULLANICI;
+    @XmlElement
+    public String SIFRE;
+
+
+    @POST
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/create")
+    public ArrayList<testModel> create(Post input) {
+
+
+        Connection con1 = null;
+
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-             con1=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","kullanici","123");
-            //con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/stok?useUnicode=true&characterEncoding=utf8&useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "1234");
-           PreparedStatement preparedStatement = con1.prepareStatement("INSERT INTO ADIM VALUES (?,?)");
-            
-            preparedStatement.setString(1,input.KULLANICI);
-            preparedStatement.setString(2,input.SIFRE);
-          
+            con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "kullanici", "123");
+            PreparedStatement preparedStatement = con1.prepareStatement("INSERT INTO ADIM VALUES (?,?)");
+
+            preparedStatement.setString(1, input.KULLANICI);
+            preparedStatement.setString(2, input.SIFRE);
+
             preparedStatement.executeUpdate();
-            
+
             con1.close();
             preparedStatement.close();
-             
+
             if (con1 != null) System.out.print("calıstı");
 
 
         } catch (Exception e) {
-            
-            testController ulas=new testController();
-              ulas.hatagönder();
+
+            testController ulas = new testController();
+            ulas.hatagönder();
         }
-    return null;  
-}
+        return null;
+    }
 
-
-
-  
-  
 
 }

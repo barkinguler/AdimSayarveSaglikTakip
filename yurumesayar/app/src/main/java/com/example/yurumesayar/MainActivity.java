@@ -97,15 +97,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-   static String sifr;
-   static String isim;
-
+    static String sifr;
+    static String isim;
 
 
     public void giris(View v) {
-           sifr = sifre.getText().toString();
-        isim=ad.getText().toString();
+        sifr = sifre.getText().toString();
+        isim = ad.getText().toString();
 
         Call<List<Bilgiler>> bilgiList = ManagerAll.getInstance().getirBilgileri();
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
@@ -113,10 +111,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Bilgiler>> call, Response<List<Bilgiler>> response) {
 
 
+                for (int i = 0; i < response.body().size(); i++) {
 
-                for(int i=0;i<response.body().size();i++){
-
-                    if(isim.equals(response.body().get(i).getKULLANICI())&&sifr.equals(response.body().get(i).getSIFRE())){
+                    if (isim.equals(response.body().get(i).getKULLANICI()) && sifr.equals(response.body().get(i).getSIFRE())) {
 
                         Intent b = new Intent(getBaseContext(), pedometer.class);
 
@@ -143,32 +140,28 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
+                Log.d("xxx", t.toString());
             }
         });
 
 
-
-
-
-
     }
 
-    private void createPost(View v){
+    private void createPost(View v) {
 
-        if(ad.getText().toString().equals("")||sifre.getText().toString().equals("")){
+        if (ad.getText().toString().equals("") || sifre.getText().toString().equals("")) {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-        alertDialog.setTitle("Hatalı Kayıt");
-        alertDialog.setMessage("Lütfen uygun şekilde kayıt olunuz");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Tamam",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
-        return;
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+            alertDialog.setTitle("Hatalı Kayıt");
+            alertDialog.setMessage("Lütfen uygun şekilde kayıt olunuz");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Tamam",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return;
         }
 
 
@@ -176,25 +169,25 @@ public class MainActivity extends AppCompatActivity {
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
             @Override
             public void onResponse(Call<List<Bilgiler>> call, Response<List<Bilgiler>> response) {
-                    for(int i=0;i<response.body().size();i++){
-                if(response.body().get(i).getKULLANICI().equals(ad.getText().toString())){
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (response.body().get(i).getKULLANICI().equals(ad.getText().toString())) {
 
-                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                    alertDialog.setTitle("Hatalı kayıt");
-                    alertDialog.setMessage("");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Tamam",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                    return;
-
-                }
-
+                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                        alertDialog.setTitle("Hatalı kayıt");
+                        alertDialog.setMessage("");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Tamam",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                        return;
 
                     }
+
+
+                }
 
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("Başarılı Kayıt");
@@ -210,32 +203,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
+                Log.d("xxx", t.toString());
             }
         });
 
 
-        Retrofit retrofit=new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.99.1:8081/RestAp_/webresources/testPost/")
                 .build();
-        APIService api=retrofit.create(APIService.class);
-        Bilgiler a=new Bilgiler();
+        APIService api = retrofit.create(APIService.class);
+        Bilgiler a = new Bilgiler();
 
         a.setKULLANICI(ad.getText().toString());
         a.setSIFRE(sifre.getText().toString());
 
-        String json=a.toString1();
-        Log.d("hata2",json);
-        final RequestBody requestBody=RequestBody.create(MediaType.parse("application/json"),json);
+        String json = a.toString1();
+        Log.d("hata2", json);
+        final RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
         api.createPost(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
 
-
                 Log.e("1111", String.valueOf(response.isSuccessful()));
-
-
 
 
             }
@@ -244,17 +234,11 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
 
-
             }
         });
 
 
-
-
     }
-
-
-
 
 
 }

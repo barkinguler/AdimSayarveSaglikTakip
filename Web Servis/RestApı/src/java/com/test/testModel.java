@@ -6,7 +6,6 @@
 package com.test;
 
 /**
- *
  * @author brkn_
  */
 public class testModel {
@@ -24,7 +23,6 @@ public class testModel {
         this.HATA = HATA;
     }
 
-    
 
     public void setORT(float ORT) {
         this.ORT = ORT;
@@ -33,22 +31,17 @@ public class testModel {
     public void setMAX(int MAX) {
         this.MAX = MAX;
     }
-    
-    
+
 
     public void setKILO(float KILO) {
         this.KILO = KILO;
     }
 
-   
-    
-    
 
     public void setTOPLAM(int toplamadim) {
         this.TOPLAM = toplamadim;
     }
-    
-    
+
 
     public void setTARIH(String TARIH) {
         this.TARIH = TARIH;
@@ -66,9 +59,5 @@ public class testModel {
         this.ADIM = ADIM;
     }
 
-   
 
-    
-   
-    
 }

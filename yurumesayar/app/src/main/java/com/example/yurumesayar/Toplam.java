@@ -40,14 +40,14 @@ public class Toplam extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toplam);
-        toplam=(TextView)findViewById(R.id.toplam);
-        toplamkal=(TextView)findViewById(R.id.toplamkalori);
-        ort=(TextView)findViewById(R.id.ort);
-        ortkal=(TextView)findViewById(R.id.ortkalori);
-        max=(TextView)findViewById(R.id.maxadim);
-        maxkal=(TextView)findViewById(R.id.maxkalori);
-        deneme=(Button)findViewById(R.id.gec);
-        detay=(Button)findViewById(R.id.detay);
+        toplam = (TextView) findViewById(R.id.toplam);
+        toplamkal = (TextView) findViewById(R.id.toplamkalori);
+        ort = (TextView) findViewById(R.id.ort);
+        ortkal = (TextView) findViewById(R.id.ortkalori);
+        max = (TextView) findViewById(R.id.maxadim);
+        maxkal = (TextView) findViewById(R.id.maxkalori);
+        deneme = (Button) findViewById(R.id.gec);
+        detay = (Button) findViewById(R.id.detay);
         detay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,20 +70,22 @@ public class Toplam extends AppCompatActivity {
         });
 
     }
+
     String isim;
+
     public void toplam() {
 
 
-       isim=MainActivity.isim;
+        isim = MainActivity.isim;
         Call<List<Bilgiler>> bilgiList = ManagerAll.getInstance().getirAdim();
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
             @Override
             public void onResponse(Call<List<Bilgiler>> call, Response<List<Bilgiler>> response) {
 
 
-                Log.d("xxx",  Integer.toString(response.body().size()));
-                for(int i=0;i<response.body().size();i++){
-                    if(isim.equals(response.body().get(i).getKULLANICI())){
+                Log.d("xxx", Integer.toString(response.body().size()));
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (isim.equals(response.body().get(i).getKULLANICI())) {
 
 
                         toplam.setText("Toplam adım sayısı :\n" + response.body().get(i).getTOPLAM());
@@ -91,12 +93,12 @@ public class Toplam extends AppCompatActivity {
                         df.setMaximumFractionDigits(2);
 
 
-                        toplamkal.setText("Yakılan toplam kalori :\n" + df.format((float)(response.body().get(i).getTOPLAM() * 0.05)));
+                        toplamkal.setText("Yakılan toplam kalori :\n" + df.format((float) (response.body().get(i).getTOPLAM() * 0.05)));
 
-                        ort.setText("Ortalama Adım :\n" + (int)(response.body().get(i).getORT()));
-                        ortkal.setText("Ortalama yakılan kalori :\n" + df.format((float)(response.body().get(i).getORT()*0.05)));
+                        ort.setText("Ortalama Adım :\n" + (int) (response.body().get(i).getORT()));
+                        ortkal.setText("Ortalama yakılan kalori :\n" + df.format((float) (response.body().get(i).getORT() * 0.05)));
                         max.setText("En Yüksek atılan Adım :\n" + (response.body().get(i).getMAX()));
-                        maxkal.setText("En Yüksek yakılan kalori :\n" + df.format((float)(response.body().get(i).getMAX()*0.05)));
+                        maxkal.setText("En Yüksek yakılan kalori :\n" + df.format((float) (response.body().get(i).getMAX() * 0.05)));
                     }
 
 
@@ -107,11 +109,9 @@ public class Toplam extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
+                Log.d("xxx", t.toString());
             }
         });
-
-
 
 
     }

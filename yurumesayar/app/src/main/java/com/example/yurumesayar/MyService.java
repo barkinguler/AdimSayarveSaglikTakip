@@ -31,13 +31,13 @@ import static com.example.yurumesayar.pedometer.simpleSwitch;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class MyService extends Service {
-    static boolean kontrol=true;
+    static boolean kontrol = true;
     private static final int NOTIF_ID = 1;
     private static final String NOTIF_CHANNEL_ID = "Channel_Id";
+
     public MyService() {
 
     }
-
 
 
     @Override
@@ -47,16 +47,12 @@ public class MyService extends Service {
     }
 
 
-
-
     @Override
     public void onDestroy() {
 
 
-
         super.onDestroy();
     }
-
 
 
     @Override
@@ -76,64 +72,62 @@ public class MyService extends Service {
 
         startForeground();
         return super.onStartCommand(intent, flags, 1);
-       // return START_STICKY;
+        // return START_STICKY;
     }
 
 
     private void startForeground() {
-        if(kontrol){
+        if (kontrol) {
 
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                CharSequence name = "sss";
+                String description = "getString(R.string.channel_description)";
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
+                channel.setDescription(description);
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "sss";
-            String description = "getString(R.string.channel_description)";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
-            channel.setDescription(description);
-
-            try{
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);}
-            catch (Exception e){
-                return;
+                try {
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
+                } catch (Exception e) {
+                    return;
+                }
             }
-        }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
-                .setSmallIcon(R.drawable.ic_message)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID")
+                    .setSmallIcon(R.drawable.ic_message)
 
-                .setContentTitle("Su içme hatırlatıcısı")
-                .setContentText("Su içmeyi unutma")
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Su içmeyi unutma"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setContentTitle("Su içme hatırlatıcısı")
+                    .setContentText("Su içmeyi unutma")
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText("Su içmeyi unutma"))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(1, builder.build());
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(1, builder.build());
 
             timer.start();
-    }}
+        }
+    }
 
-    public CountDownTimer timer= new CountDownTimer(5000,20){
+    public CountDownTimer timer = new CountDownTimer(5000, 20) {
 
 
         @Override
         public void onTick(long millisUntilFinished) {
-            Log.d("asd",Boolean.toString(kontrol));
+            Log.d("asd", Boolean.toString(kontrol));
 
         }
 
         @Override
         public void onFinish() {
 
-            Log.d("asdd",Boolean.toString(kontrol));
+            Log.d("asdd", Boolean.toString(kontrol));
 
             startForeground();
         }
     }.start();
-
 
 
 }

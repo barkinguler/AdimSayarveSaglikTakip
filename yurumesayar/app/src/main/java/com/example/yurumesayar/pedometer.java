@@ -43,6 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+
 import static java.util.concurrent.TimeUnit.*;
 
 public class pedometer extends AppCompatActivity implements SensorEventListener, StepListener {
@@ -65,13 +66,6 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
     long firebaseadım = 0;
     String document = MainActivity.document;
 
-  /*  @Override
-    protected void onStart() {
-        super.onStart();
-        if(MyService.kontrol=true)
-            simpleSwitch.setChecked(true);
-
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,36 +80,27 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
         TvSteps = (TextView) findViewById(R.id.tv_steps);
         BtnStart = (Button) findViewById(R.id.btn_start);
         BtnStop = (Button) findViewById(R.id.btn_stop);
-        endex=    (Button) findViewById(R.id.endeks);
-        kalori=(TextView) findViewById(R.id.kalori);
-        kaloriresim=(TextView)findViewById(R.id.kaloriresim);
+        endex = (Button) findViewById(R.id.endeks);
+        kalori = (TextView) findViewById(R.id.kalori);
+        kaloriresim = (TextView) findViewById(R.id.kaloriresim);
         toplamadım = (Button) findViewById(R.id.toplamadımsayısı);
 
         simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                 if(simpleSwitch.isChecked()){
-                     MyService.kontrol=true;
-                     Intent myService = new Intent(pedometer.this, MyService.class);
+                if (simpleSwitch.isChecked()) {
+                    MyService.kontrol = true;
+                    Intent myService = new Intent(pedometer.this, MyService.class);
 
-                     startService(myService);
+                    startService(myService);
 
-            }
-                 else{
+                } else {
 
-                Intent myService = new Intent(pedometer.this, MyService.class);
-                     MyService.kontrol=false;
-
+                    Intent myService = new Intent(pedometer.this, MyService.class);
+                    MyService.kontrol = false;
 
 
-
-
-
-
-
-
-
-                 }
+                }
             }
         });
 
@@ -125,7 +110,7 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
                 endeks();
             }
         });
-        oturum=(Button)findViewById(R.id.oturum);
+        oturum = (Button) findViewById(R.id.oturum);
         oturum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +142,7 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
 
             @Override
             public void onClick(View arg0) {
-                MyService.kontrol=false;
+                MyService.kontrol = false;
 
                 sensorManager.unregisterListener(pedometer.this);
 
@@ -185,26 +170,26 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
 
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-        System.out.println(df.format((float)numSteps*0.05));
+        System.out.println(df.format((float) numSteps * 0.05));
 
         numSteps++;
 
-        TvSteps.setText( numSteps+"");
+        TvSteps.setText(numSteps + "");
         kaloriresim.setVisibility(TextView.VISIBLE);
 
-        kalori.setText(("Harcanan Cal :"+df.format((float)numSteps*0.05)));
+        kalori.setText(("Harcanan Cal :" + df.format((float) numSteps * 0.05)));
 
-        Retrofit retrofit=new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.99.1:8081/RestAp_/webresources/testUpdate/")
                 .build();
-        APIService api=retrofit.create(APIService.class);
-        Bilgiler a=new Bilgiler();
+        APIService api = retrofit.create(APIService.class);
+        Bilgiler a = new Bilgiler();
 
         a.setKULLANICI(MainActivity.isim);
 
-        String json=a.toStringUpdate();
-        Log.d("hata2",json);
-        RequestBody requestBody=RequestBody.create(MediaType.parse("application/json"),json);
+        String json = a.toStringUpdate();
+        Log.d("hata2", json);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
         api.createPost1(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -213,10 +198,9 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("hata1",t.toString());
+                Log.d("hata1", t.toString());
             }
         });
-
 
 
     }
@@ -229,24 +213,23 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
 
         startActivity(i);
     }
-    public void oturum(){
-        MainActivity.isim="";
-        MainActivity.sifr="";
+
+    public void oturum() {
+        MainActivity.isim = "";
+        MainActivity.sifr = "";
         Intent i = new Intent(getBaseContext(), MainActivity.class);
 
         startActivity(i);
         finish();
     }
-    public void endeks(){
+
+    public void endeks() {
         Intent i = new Intent(getBaseContext(), Endex.class);
 
         startActivity(i);
 
 
     }
-
-
-
 
 
 }

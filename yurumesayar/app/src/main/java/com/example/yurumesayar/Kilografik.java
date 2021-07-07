@@ -32,34 +32,33 @@ public class Kilografik extends AppCompatActivity {
     ArrayList<String> labesNames;
     ArrayList<Integer> labessayı;
     public String isim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kilografik);
-        mBarChart=findViewById(R.id.barChart);
-        barEntryArrayList=new ArrayList<>();
-        labesNames=new ArrayList<>();
+        mBarChart = findViewById(R.id.barChart);
+        barEntryArrayList = new ArrayList<>();
+        labesNames = new ArrayList<>();
         getGrownChart();
     }
 
-    private void getGrownChart(){
-        isim=MainActivity.isim;
+    private void getGrownChart() {
+        isim = MainActivity.isim;
         Call<List<Bilgiler>> bilgiList = ManagerAll.getInstance().getirKilogecmis();
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
             @Override
             public void onResponse(Call<List<Bilgiler>> call, Response<List<Bilgiler>> response) {
 
-                List <String> tut=new ArrayList<>();
-                List<String> tut2=new ArrayList<>();
+                List<String> tut = new ArrayList<>();
+                List<String> tut2 = new ArrayList<>();
 
-                for(int i=0;i<response.body().size();i++){
-                    if(isim.equals(response.body().get(i).getKULLANICI())){
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (isim.equals(response.body().get(i).getKULLANICI())) {
 
-                       /* barEntryArrayList.add(new BarEntry(i,(response.body().get(i).getKILO())));
-                        labesNames.add(response.body().get(i).getTARIH().substring(0,10));*/
+
                         tut.add(Float.toString(response.body().get(i).getKILO()));
-                        tut2.add(response.body().get(i).getTARIH().substring(0,10));
-
+                        tut2.add(response.body().get(i).getTARIH().substring(0, 10));
 
 
                     }
@@ -67,23 +66,23 @@ public class Kilografik extends AppCompatActivity {
 
                 }
 
-                for(int i=0;i<tut.size();i++){
+                for (int i = 0; i < tut.size(); i++) {
 
-                    barEntryArrayList.add(new BarEntry(i,Float.parseFloat(tut.get(i))));
-                    labesNames.add(tut2.get(i).substring(0,10));
+                    barEntryArrayList.add(new BarEntry(i, Float.parseFloat(tut.get(i))));
+                    labesNames.add(tut2.get(i).substring(0, 10));
 
 
                 }
 
 
-                BarDataSet barDataSet=new BarDataSet(barEntryArrayList,"Günler");
+                BarDataSet barDataSet = new BarDataSet(barEntryArrayList, "Günler");
                 barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-                Description description=new Description();
+                Description description = new Description();
                 description.setText("Günler");
                 mBarChart.setDescription(description);
-                BarData barData=new BarData(barDataSet);
+                BarData barData = new BarData(barDataSet);
                 mBarChart.setData(barData);
-                XAxis xAxis=mBarChart.getXAxis();
+                XAxis xAxis = mBarChart.getXAxis();
 
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(labesNames));
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -91,17 +90,15 @@ public class Kilografik extends AppCompatActivity {
                 xAxis.setDrawAxisLine(false);
 
                 xAxis.setGranularityEnabled(true);
-                // xAxis.setGranularity(1f);
+
                 xAxis.setLabelCount(labesNames.size());
                 xAxis.setLabelRotationAngle(270);
-                // mBarChart.animateY(2000);
-                //  xAxis.disableAxisLineDashedLine();
-                //xAxis.setDrawLabels(false);
+
                 YAxis rightYAxis = mBarChart.getAxisRight();
                 rightYAxis.setEnabled(true);
                 mBarChart.getAxisLeft().setEnabled(true);
 
-                Legend l=mBarChart.getLegend();
+                Legend l = mBarChart.getLegend();
                 l.setTextSize(20f);
 
 
@@ -109,13 +106,6 @@ public class Kilografik extends AppCompatActivity {
 
                 mBarChart.setExtraBottomOffset(100);
                 xAxis.setTextSize(20f);
-                //barDataSet.s
-                /*barData.setValueFormatter(new ValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value) {
-                        return String.valueOf((int) Math.floor(value));
-                    }
-                });*/
 
 
                 mBarChart.getLegend().setEnabled(false);
@@ -125,7 +115,7 @@ public class Kilografik extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
+                Log.d("xxx", t.toString());
             }
         });
 

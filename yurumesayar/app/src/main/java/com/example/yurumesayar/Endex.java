@@ -30,15 +30,16 @@ public class Endex extends AppCompatActivity {
     private TextView goster;
     private Button grafik;
     private Button tablo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endex);
-        hesapla=(Button)findViewById(R.id.hesapla);
-        boy=(EditText)findViewById(R.id.boy);
-        kilo=(EditText)findViewById(R.id.kilo);
-        tablo=(Button)findViewById(R.id.tablo);
-        grafik=(Button)findViewById(R.id.grafik);
+        hesapla = (Button) findViewById(R.id.hesapla);
+        boy = (EditText) findViewById(R.id.boy);
+        kilo = (EditText) findViewById(R.id.kilo);
+        tablo = (Button) findViewById(R.id.tablo);
+        grafik = (Button) findViewById(R.id.grafik);
 
         tablo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +63,10 @@ public class Endex extends AppCompatActivity {
         hesapla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(boy.getText().toString().equals("")||kilo.toString().equals(""))){
-                hesap();
-                kaydet();
-                }
-                else{
+                if (!(boy.getText().toString().equals("") || kilo.toString().equals(""))) {
+                    hesap();
+                    kaydet();
+                } else {
 
                     AlertDialog alertDialog = new AlertDialog.Builder(Endex.this).create();
                     alertDialog.setTitle("Hatalı Giriş");
@@ -83,24 +83,24 @@ public class Endex extends AppCompatActivity {
         });
     }
 
-    public void kaydet(){
+    public void kaydet() {
 
 
-        float kiloo=Float.parseFloat(kilo.getText().toString());
+        float kiloo = Float.parseFloat(kilo.getText().toString());
 
 
-        Retrofit retrofit=new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.99.1:8081/RestAp_/webresources/kitle/")
                 .build();
-        APIService api=retrofit.create(APIService.class);
-        Bilgiler a=new Bilgiler();
+        APIService api = retrofit.create(APIService.class);
+        Bilgiler a = new Bilgiler();
 
         a.setKULLANICI(MainActivity.isim);
         a.setKILO(kiloo);
 
-        String json=a.toKıtle();
-        Log.d("hata2",json);
-        RequestBody requestBody=RequestBody.create(MediaType.parse("application/json"),json);
+        String json = a.toKıtle();
+        Log.d("hata2", json);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
         api.createPost2(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -109,48 +109,48 @@ public class Endex extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("hata1",t.toString());
+                Log.d("hata1", t.toString());
             }
         });
 
     }
 
-    public void hesap(){
+    public void hesap() {
 
         AlertDialog alertDialog = new AlertDialog.Builder(Endex.this).create();
         alertDialog.setTitle("Kitle Endeksi");
-        //alertDialog.setMessage("Alert message to be shown");
+
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Tamam",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        //alertDialog.show();
 
 
-        float boyy=Float.parseFloat(boy.getText().toString());
-        float kiloo=Float.parseFloat(kilo.getText().toString());
-        float endex=kiloo/(boyy*boyy);
-        if(endex>=40){
+        float boyy = Float.parseFloat(boy.getText().toString());
+        float kiloo = Float.parseFloat(kilo.getText().toString());
+        float endex = kiloo / (boyy * boyy);
+        if (endex >= 40) {
 
-        alertDialog.setMessage("Aşırı Obez");
-        alertDialog.show();}
-        else if(endex>=30){
+            alertDialog.setMessage("Aşırı Obez");
+            alertDialog.show();
+        } else if (endex >= 30) {
 
-        alertDialog.setMessage("Obez");
-        alertDialog.show();}
-        else if(endex>=25){
+            alertDialog.setMessage("Obez");
+            alertDialog.show();
+        } else if (endex >= 25) {
 
-        alertDialog.setMessage("Fazla Kilolu");
-        alertDialog.show();}
-        else if(endex>=18.5){
+            alertDialog.setMessage("Fazla Kilolu");
+            alertDialog.show();
+        } else if (endex >= 18.5) {
 
-        alertDialog.setMessage("Normal Kilolu");
-        alertDialog.show();}
-        else if(endex<18.5){
+            alertDialog.setMessage("Normal Kilolu");
+            alertDialog.show();
+        } else if (endex < 18.5) {
 
-        alertDialog.setMessage("Düşük Kilolu");
-        alertDialog.show();}
+            alertDialog.setMessage("Düşük Kilolu");
+            alertDialog.show();
+        }
     }
 }

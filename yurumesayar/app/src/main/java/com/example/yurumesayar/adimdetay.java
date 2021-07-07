@@ -24,6 +24,7 @@ import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class adimdetay extends AppCompatActivity {
     public String isim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,9 @@ public class adimdetay extends AppCompatActivity {
     }
 
 
-    public void yap(){
+    public void yap() {
 
-        isim=MainActivity.isim;
+        isim = MainActivity.isim;
         Call<List<Bilgiler>> bilgiList = ManagerAll.getInstance().getirAdimgecmis();
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
             @Override
@@ -48,38 +49,31 @@ public class adimdetay extends AppCompatActivity {
                         .build();
                 ArrayList<DataTableRow> rows = new ArrayList<>();
 
-                Log.d("xxx",  Integer.toString(response.body().size()));
-                for(int i=0;i<response.body().size();i++){
-                    if(isim.equals(response.body().get(i).getKULLANICI())){
-                        Log.d("xyxy",response.body().get(i).getKULLANICI()+response.body().get(i).getADIM());
+                Log.d("xxx", Integer.toString(response.body().size()));
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (isim.equals(response.body().get(i).getKULLANICI())) {
+                        Log.d("xyxy", response.body().get(i).getKULLANICI() + response.body().get(i).getADIM());
                         DataTableRow row = new DataTableRow.Builder()
-                                .value(response.body().get(i).getTARIH().substring(0,10))
+                                .value(response.body().get(i).getTARIH().substring(0, 10))
                                 .value(Integer.toString(response.body().get(i).getADIM()))
                                 .build();
                         rows.add(row);
-                       // göster.setText("Toplam adım sayısı :" + response.body().get(i).getTOPLAM()+"\n"+ "Yakılan kalori :" + (float)(response.body().get(i).getTOPLAM() * 0.05));
                     }
 
 
                 }
-               //dataTable.setTypeface(DEFAULT_BOLD);
                 dataTable.setHeader(header);
                 dataTable.setRows(rows);
                 dataTable.inflate(adimdetay.this);
 
-                //response.body().get(1).toString()
+
             }
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
-        }
+                Log.d("xxx", t.toString());
+            }
         });
-
-
-
-
-
 
 
     }

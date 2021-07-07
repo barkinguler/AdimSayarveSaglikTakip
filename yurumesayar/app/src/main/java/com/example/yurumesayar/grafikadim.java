@@ -32,67 +32,55 @@ public class grafikadim extends AppCompatActivity {
     ArrayList<String> labesNames;
     ArrayList<Integer> labessayı;
     public String isim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grafikadim);
-        mBarChart=findViewById(R.id.barChart);
-        barEntryArrayList=new ArrayList<>();
-        labesNames=new ArrayList<>();
+        mBarChart = findViewById(R.id.barChart);
+        barEntryArrayList = new ArrayList<>();
+        labesNames = new ArrayList<>();
         getGrownChart();
     }
 
-    private void getGrownChart(){
-        isim=MainActivity.isim;
+    private void getGrownChart() {
+        isim = MainActivity.isim;
         Call<List<Bilgiler>> bilgiList = ManagerAll.getInstance().getirAdimgecmis();
         bilgiList.enqueue(new Callback<List<Bilgiler>>() {
             @Override
             public void onResponse(Call<List<Bilgiler>> call, Response<List<Bilgiler>> response) {
 
 
-                List <String> tut=new ArrayList<>();
-                List<String> tut2=new ArrayList<>();
-                for(int i=0;i<response.body().size();i++){
-                    if(isim.equals(response.body().get(i).getKULLANICI())){
+                List<String> tut = new ArrayList<>();
+                List<String> tut2 = new ArrayList<>();
+                for (int i = 0; i < response.body().size(); i++) {
+                    if (isim.equals(response.body().get(i).getKULLANICI())) {
                         tut.add(Integer.toString(response.body().get(i).getADIM()));
-                        tut2.add(response.body().get(i).getTARIH().substring(0,10));
-                       /* Log.d("xyxy",response.body().get(i).getKULLANICI()+response.body().get(i).getADIM());
-                        barEntryArrayList.add(new BarEntry(i,(int)(response.body().get(i).getADIM())));
-                        labesNames.add(response.body().get(i).getTARIH().substring(0,10));
-
-
-                        mBarChart.getAxisLeft().setValueFormatter(new ValueFormatter() {
-                            @Override
-                            public String getFormattedValue(float value) {
-                                return String.valueOf((int) Math.floor(value));
-                            }
-                        });*/
-
+                        tut2.add(response.body().get(i).getTARIH().substring(0, 10));
 
                     }
 
 
                 }
 
-                for(int i=0;i<tut.size();i++){
+                for (int i = 0; i < tut.size(); i++) {
 
-                    barEntryArrayList.add(new BarEntry(i,Integer.parseInt(tut.get(i))));
-                    labesNames.add(tut2.get(i).substring(0,10));
+                    barEntryArrayList.add(new BarEntry(i, Integer.parseInt(tut.get(i))));
+                    labesNames.add(tut2.get(i).substring(0, 10));
 
 
                 }
 
 
-
-                BarDataSet barDataSet=new BarDataSet(barEntryArrayList,"Günler");
+                BarDataSet barDataSet = new BarDataSet(barEntryArrayList, "Günler");
                 barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                Description description=new Description();
+                Description description = new Description();
                 description.setText("Günler");
                 mBarChart.setDescription(description);
 
-                BarData barData=new BarData(barDataSet);
+                BarData barData = new BarData(barDataSet);
                 mBarChart.setData(barData);
-                XAxis xAxis=mBarChart.getXAxis();
+                XAxis xAxis = mBarChart.getXAxis();
                 xAxis.setGranularityEnabled(true);
                 xAxis.setValueFormatter(new IndexAxisValueFormatter(labesNames));
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -100,17 +88,14 @@ public class grafikadim extends AppCompatActivity {
                 xAxis.setDrawAxisLine(false);
 
 
-                // xAxis.setGranularity(1f);
                 xAxis.setLabelCount(labesNames.size());
                 xAxis.setLabelRotationAngle(270);
-                // mBarChart.animateY(2000);
-                //  xAxis.disableAxisLineDashedLine();
-                //xAxis.setDrawLabels(false);
+
                 YAxis rightYAxis = mBarChart.getAxisRight();
                 rightYAxis.setEnabled(false);
                 mBarChart.getAxisLeft().setEnabled(false);
 
-                Legend l=mBarChart.getLegend();
+                Legend l = mBarChart.getLegend();
                 l.setTextSize(20f);
 
 
@@ -118,7 +103,7 @@ public class grafikadim extends AppCompatActivity {
 
                 mBarChart.setExtraBottomOffset(100);
                 xAxis.setTextSize(20f);
-                //barDataSet.s
+
                 barData.setValueFormatter(new ValueFormatter() {
                     @Override
                     public String getFormattedValue(float value) {
@@ -134,7 +119,7 @@ public class grafikadim extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Bilgiler>> call, Throwable t) {
-                Log.d("xxx",t.toString());
+                Log.d("xxx", t.toString());
             }
         });
 

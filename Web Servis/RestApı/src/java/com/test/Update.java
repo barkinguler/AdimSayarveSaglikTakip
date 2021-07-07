@@ -22,47 +22,48 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
  * @author brkn_
  */
 @Path("testUpdate")
 @XmlRootElement
 public class Update {
-    @XmlElement public String KULLANICI;
-   @XmlElement public int ADIM;
-   @POST @Consumes("application/json")
-@Produces(MediaType.APPLICATION_JSON)
-@Path("/update")
-public void create(Post input) 
-{
-   
-    Connection con1=null;
-         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	Date date = new Date();
-	
-        String b=dateFormat.format(date);
-        
-        Connection conn=null;
-         
+    @XmlElement
+    public String KULLANICI;
+    @XmlElement
+    public int ADIM;
+
+    @POST
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/update")
+    public void create(Post input) {
+
+        Connection con1 = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+
+        String b = dateFormat.format(date);
+
+        Connection conn = null;
+
         CallableStatement cStmt = null;
-        try{
+        try {
             Class.forName("oracle.jdbc.OracleDriver");
-            
-             con1=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","kullanici","123");
-           
-            
-            cStmt=con1.prepareCall("{call ADIM_EKLE(?,?)}");
-            cStmt.setString(1,input.KULLANICI);
-            cStmt.setString(2,b);
-            
+
+            con1 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "kullanici", "123");
+
+
+            cStmt = con1.prepareCall("{call ADIM_EKLE(?,?)}");
+            cStmt.setString(1, input.KULLANICI);
+            cStmt.setString(2, b);
+
             cStmt.execute();
-con1.close();
-cStmt.close();
-        }
-        catch(Exception e){
+            con1.close();
+            cStmt.close();
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
-     
-} 
+
+
+    }
 }
